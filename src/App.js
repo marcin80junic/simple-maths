@@ -25,19 +25,17 @@ function App() {
   const [settings, setSettings] = useState(getInitialSettings())
 
   useEffect(() => {
-  //  console.log("saving selected")
     localStorage.setItem("selection", selection)
   }, [selection])
 
   useEffect(() => {
-  //  console.log("restoring selected")
     const elements = document.querySelectorAll('.sidenav > a')
     elements.forEach((el) => {
       if (el.href.endsWith(selection)) {
         el.classList.add("selected")
       }
     })
-  }, [Navbar])
+  }, [])
 
   const handleNavigation = (href) => {
     const newSelection = href.substring(href.lastIndexOf("/") + 1)
@@ -56,6 +54,7 @@ function App() {
     <>
       <Navbar selection= {selection} handleNavigation={handleNavigation} />
       <Routes>
+        <Route path="" element={<HomePage />} />
         <Route path="home" element={<HomePage />} />
         <Route path="addition" element={<Addition settings={settings} />} />
         <Route path="subtraction" element={<Subtraction settings={settings} />} />
