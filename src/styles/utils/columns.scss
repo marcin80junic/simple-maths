@@ -1,0 +1,112 @@
+/*
+
+Columns
+
+Independent lines of elements aligned to right, laid out in roughly centered columns.
+Javascript takes care of adjusting right padding when window is being resized. This keeps
+the columns centered.
+
+Add class `columns` to a wrapper container and class `columns-line` to any number of individual
+children lines. `columns-line` direct children must not be text nodes - those need to be wrapped into
+element nodes.
+
+Markup:
+<div class="columns">
+    <div class="columns-line">
+        <div class="columns-line-operation">
+            <div>20 +</div> 
+            <button>butt</button>
+            <div>= 6</div>
+            <button>dupp</button>
+        </div>
+    </div>
+    <div class="columns-line">
+        <div class="columns-line-operation">
+            <div>20 +</div> 
+            <button>butt</button>
+            <div>= 6</div>
+            <button>dupp</button>
+        </div>
+    </div>
+    <div class="columns-line">
+        <div class="columns-line-operation">
+            <div>20 +</div> 
+            <button>butt</button>
+            <div>= 6</div>
+            <button>dupp</button>
+        </div>
+    </div>
+    <div class="columns-line">
+        <div class="columns-line-operation">
+            <div>20 +</div> 
+            <button>butt</button>
+            <div>= 6</div>
+            <button>dupp</button>
+        </div>
+    </div>
+    <div class="columns-line">
+        <div class="columns-line-operation">
+            <div>20 +</div> 
+            <button>butt</button>
+            <div>= 6</div>
+            <button>dupp</button>
+        </div>
+    </div>
+    <div class="columns-line">
+        <div class="columns-line-operation">
+            <div>20 +</div> 
+            <button>butt</button>
+            <div>= 6</div>
+            <button>dupp</button>
+        </div>
+    </div>
+</div>
+
+Styleguide Layout.Columns
+
+*/
+
+@import "./variables.scss";
+
+
+.columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+    grid-auto-rows: 1fr;
+    grid-row-gap: 1em;
+    grid-column-gap: 1em;
+}
+
+.columns-line {
+    display: flex;
+    justify-content: center;
+}
+
+.columns-line-operation {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 2.6em;
+
+    &.fraction-line {
+        min-height: 4em;
+        & > *:not(:first-child) {
+            margin-left: 0.5em;
+        }
+    }
+    & > * {
+        display: inline-block;
+        &:not(:first-child) {
+            margin-left: 0.3em;
+        }
+    }
+
+    @media (max-width: $screen-breakpoint-1) {
+        & .icon {
+            padding: 0.2em;
+            border: 1px solid mediumaquamarine;
+            border-radius: 50%;
+        }
+    }
+}

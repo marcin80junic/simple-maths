@@ -1,0 +1,57 @@
+@import "./utils/variables.scss";
+@import "./utils/form-input.scss";
+@import "./utils/button3d.scss";
+
+
+/* interface module */
+
+
+.interface {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  
+    & > *:not(:last-child) {
+        margin-right: 1em;
+    }
+    & > .interface-item {
+        align-items: center;
+        display: flex;
+        padding: .5em 0;
+        & > label {
+            margin-right: .5em;
+        }
+    }
+    @media (max-width: $screen-breakpoint-1) {
+        flex-direction: column;
+        align-items: center;
+        & > *:not(:last-child) {
+            margin-right: 0;
+        }
+    }
+}
+    
+.interface-item-score {
+    display: grid;
+    grid-template-columns: 0.7fr 0.3fr;
+    grid-template-rows: 1fr;
+    grid-gap: .5em;
+    padding: .5em 0;
+    & > * {
+        white-space: nowrap;
+        text-align: center;
+        & > * {
+            display: inline-block;
+        }
+    }
+}
+  
+.interface-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin: 0.5em 0;
+}
+    
+  
+  
+  /* end of interface module */  

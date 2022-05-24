@@ -1,20 +1,50 @@
-import React from "react"
-import ExerciseUI from "./ExerciseUI"
+import React, { useContext } from "react"
+import { AppContext } from "../App"
+import MathContainer from "./mathContent/MathContainer"
+import { decorateExercise } from "./utils/utils"
+import { generateAdditionExercises } from "./utils/mathsAPIs"
 
 
-const Addition = (props) => {
+const Addition = ({ options }) => {
+
+    const [ settings, constants ] = useContext(AppContext)
+
+    console.log("==========================")
+    console.log("rendering Addition")
+
+    const restoreSession = () => {
+        const exercises = sessionStorage.getItem("addition_exercises")
+        return JSON.parse(exercises) || []
+    }
+
+    const saveSession = (exercises) => {
+        sessionStorage.setItem("addition_exercises", JSON.stringify(exercises))
+    }
+
+    const getNewExercises = () => {
+        const randomizeAnswers = settings.general.randomizeAnswers
+        const level = constants.level.indexOf(options.level) + 1
+        const newExercises = generateAdditionExercises(level, options.count)
+        return newExercises.map((exercise) => decorateExercise(exercise, randomizeAnswers))
+    }
+
 
     return (
         <div className="content">
-            <h2 className="center">Addition</h2>
             <p>
                 <span className="special">Addition </span>
-                is like "A" in alphabet, it's the most important mathematical operation.
+                is like an "A" in alphabet, it's the most important mathematical operation.
                 Everyone is adding when collecting things or money...
             </p>
-            <ExerciseUI selection="Addition" />
+            <MathContainer 
+                restoreSession={restoreSession}
+                saveSession={saveSession}
+                getNewExercises={getNewExercises}
+                options={options}
+            />
         </div>
     )
+
 }
 
 export default Addition

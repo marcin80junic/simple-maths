@@ -2,29 +2,31 @@ import React, { useContext } from "react"
 import { AppContext } from "../App"
 import MathContainer from "./mathContent/MathContainer"
 import { decorateExercise } from "./utils/utils"
-import { generateSubtractionExercises } from "./utils/mathsAPIs"
+import { generateCustomExercises } from "./utils/mathsAPIs"
 
 
-const Subtraction = ({ options }) => {
+const Custom = ({ options }) => {
 
     const [ settings, constants ] = useContext(AppContext)
 
     console.log("==========================")
-    console.log("rendering Subtraction")
+    console.log("rendering Custom")
 
     const restoreSession = () => {
-        const exercises = sessionStorage.getItem("subtraction_exercises")
+        const exercises = sessionStorage.getItem("custom_exercises")
         return JSON.parse(exercises) || []
     }
 
     const saveSession = (exercises) => {
-        sessionStorage.setItem("subtraction_exercises", JSON.stringify(exercises))
+        sessionStorage.setItem("custom_exercises", JSON.stringify(exercises))
     }
 
     const getNewExercises = () => {
         const randomizeAnswers = settings.general.randomizeAnswers
         const level = constants.level.indexOf(options.level) + 1
-        const newExercises = generateSubtractionExercises(level, options.count)
+        const types = ["addition", "subtraction"]
+        const brackets = false
+        const newExercises = generateCustomExercises(level, options.count, types, brackets)
         return newExercises.map((exercise) => decorateExercise(exercise, randomizeAnswers))
     }
 
@@ -32,12 +34,11 @@ const Subtraction = ({ options }) => {
     return (
         <div className="content">
             <p>
-                <span className="special">Subtracting{" "}</span>
-                is a little bit more difficult but you should learn it quickly.
-                It may not feel as natural as adding but you need to master it so you can
-                calculate your due change while shopping with cash.
+                If you mastered all mathematical operations and you are still eager for new
+                challenges you are in a right spot! In Custom section you can mix and match
+                everything you learnt so far... enough talking, get to it!
             </p>
-            <MathContainer 
+            <MathContainer
                 restoreSession={restoreSession}
                 saveSession={saveSession}
                 getNewExercises={getNewExercises}
@@ -48,4 +49,4 @@ const Subtraction = ({ options }) => {
 
 }
 
-export default Subtraction
+export default Custom

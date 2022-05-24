@@ -1,0 +1,54 @@
+@import "./variables.scss";
+
+/* button3d module */
+
+.button3d {
+    cursor: pointer;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, .3);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+
+    &:hover {
+        filter: brightness(90%);
+    }
+    &:active,
+    &.button3d-selected:active {
+        filter: brightness(70%);
+        transform: translateY(3px) translateX(3px);
+        box-shadow: inset 0 0 .3em rgba(0, 0, 0, .3),
+                    inset 0 .3em .7em rgba(0, 0, 0, .3);
+    }
+    &.button3d-selected {
+        filter: brightness(75%);
+        transform: translateY(2px) translateX(2px);
+        box-shadow: inset 0 0 .3em rgba(0, 0, 0, .1),
+                    inset 0 .3em .7em rgba(0, 0, 0, .1);
+        &:hover {
+            filter: brightness(70%);
+        } 
+    }
+    &.button3d-flat {
+        &:active {
+            filter: brightness(80%);
+            transform: translateY(2px) translateX(2px);
+            box-shadow: none;
+        }
+    }
+    &:disabled:hover {
+        cursor: initial;
+        filter: none;
+    }
+
+    @media (max-width: $screen-breakpoint-1) {
+        padding: 0.4rem;
+    }
+}
+
+.no-touch.button3d:active {
+    border: 1px solid rgba(0, 0, 0, .5);
+    transform: translateY(2px);
+    box-shadow: inset 0 0 .3em rgba(0, 0, 0, .5),
+                inset 0 .3em .7em rgba(0, 0, 0, .5);
+}
+
+/* end of button3d module */

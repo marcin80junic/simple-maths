@@ -1,0 +1,60 @@
+@import "./variables.scss";
+
+
+/* form-input module */
+
+input, .interactive {
+    cursor: pointer;
+}
+
+.form-input {
+    font-family: inherit;
+    font-size: .9em;
+    background-color: $green-pale;
+    border: 1px solid rgba(0, 0, 0, .5);
+    border-radius: 0.4em;
+    outline: none;
+    &:hover,
+    &.no-touch:hover:not(:disabled),
+    &.no-touch:focus:not(:disabled) {
+        filter: brightness(90%);
+    }
+    &:active {
+        filter: brightness(85%);
+    }
+    &.correct {
+        border: 2px solid #1aff1a;
+    }
+    &.warning {
+        border: 2px inset $red-light;
+    }
+    &.invisible {
+        visibility: hidden;
+    }
+}
+
+input[type=number].form-input {
+    width: 2.3em;
+    padding: 0.5rem 0;
+    text-align: center;
+    background-color: $yellow-pale;
+    &.no-touch:hover,
+    &.no-touch:focus {
+        background-color: $yellow-light;
+    }
+    @media (min-width: $screen-breakpoint-1) {
+        appearance: textfield;
+        padding: 0.2rem 0.1rem;
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {     /* Edge and IE */
+            -webkit-appearance: none; 
+        }
+    }
+}
+
+input[type=checkbox].form-input {
+    box-shadow: none;
+    border-radius: 0.2em;
+}
+
+/* end of form-input module */

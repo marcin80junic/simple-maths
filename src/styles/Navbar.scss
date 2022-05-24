@@ -91,7 +91,6 @@
 @media (min-width: $screen-breakpoint-1) {
 
   .sidenav {
-    position: sticky;
     top: 1vh;
     left: 1vh;
     height: 98vh;
@@ -117,15 +116,6 @@
         &.no-touch:hover,
         &.no-touch:focus {
           background-image: linear-gradient($red-dark, $red, $red-dark);
-        }
-        &:active,
-        &.selected:active {
-          transform: translateY(2px);
-        }
-        &.selected:not(:active) {
-          background-image: linear-gradient($red-dark, $red, $red-dark);
-          box-shadow: inset 0 0 0.3em $red-dark,
-                      inset 0 0.3em .7em rgba(0, 0, 0, .3);
         }
       }
   }
