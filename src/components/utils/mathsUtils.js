@@ -118,6 +118,23 @@ export const range = (min, max, excludePrimes, optArray) => {
 }
 
 
+/*
+    Method returns the shortest (lowest) possible represantation of fraction
+*/
+export const reduceFraction = (num, den) => {
+    let x = num,
+        y = den,
+        temp
+
+    while (y) {  // find greatest common divisor
+        temp = y;
+        y = x % y;
+        x = temp;
+    }
+    return [num / x, den / x];
+}
+
+
 
 /* 
   Reduce method takes whole operation array and returns its total result.
@@ -126,6 +143,7 @@ export const range = (min, max, excludePrimes, optArray) => {
   The valid operation signs are MathOperation constants: ADDITION_SIGN, SUBTRACTION_SIGN,
   MULTIPLICATION_SIGN and DIVISION_SIGN.
 */
+
 const reduce = (array) => {
     let total = array[0];
     const size = array.length,
@@ -137,63 +155,7 @@ const reduce = (array) => {
             : array[0];
     }
     for (let i = 2; i < size; i += 2) {
-        total = reducer(total, array[i], array[i - 1], isFraction);
+     //   total = reducer(total, array[i], array[i - 1], isFraction);
     }
     return total;
-}
-/*
-  Reduces single operation. 
-*/
-const reducer = (prev, curr, sign, isFraction) => {
-
-    const reduceFraction = (num, den) => {
-        let x = num, y = den, temp;
-        while (y) {  // find greatest common divisor
-            temp = y;
-            y = x % y;
-            x = temp;
-        }
-        return [num / x, den / x];
-    },
-        addFraction = () => {
-            let num = prev[0] * curr[1] + curr[0] * prev[1],
-                den = prev[1] * curr[1];
-            return reduceFraction(num, den);
-        },
-        subtrFraction = () => {
-            let num = prev[0] * curr[1] - curr[0] * prev[1],
-                den = prev[1] * curr[1];
-            return reduceFraction(num, den);
-        },
-        multiplyFraction = () => {
-            let num = prev[0] * curr[0],
-                den = prev[1] * curr[1];
-            return reduceFraction(num, den);
-        },
-        divideFraction = () => {
-            let num = prev[0] * curr[1],
-                den = prev[1] * curr[0];
-            return reduceFraction(num, den);
-        };
-
-    switch (sign) {
-        case "+":
-            return isFraction ?
-                addFraction()
-                : prev + curr;
-        case "-":
-            return isFraction ?
-                subtrFraction()
-                : prev - curr;
-        case "":
-            return isFraction ?
-                multiplyFraction()
-                : prev * curr;
-        case "":
-            return isFraction ?
-                divideFraction()
-                : prev / curr;
-        default:
-            throw new Error('unrecognized operation sign character');
-    }
 }

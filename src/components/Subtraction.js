@@ -22,9 +22,9 @@ const Subtraction = ({ options }) => {
     }
 
     const getNewExercises = () => {
-        const randomizeAnswers = settings.general.randomizeAnswers
+        const randomizeAnswers = settings.general.randomizeAnswers === 'true'
         const level = constants.level.indexOf(options.level) + 1
-        const newExercises = generateSubtractionExercises(level, options.count)
+        const newExercises = generateSubtractionExercises(options.count, level)
         return newExercises.map((exercise) => decorateExercise(exercise, randomizeAnswers))
     }
 

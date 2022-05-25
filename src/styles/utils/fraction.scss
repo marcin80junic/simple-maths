@@ -1,0 +1,65 @@
+@import "./variables.scss";
+
+/* 
+Fraction
+
+Displays numbers as a fraction.
+
+Add class `fraction` to a wrapper *div* element, class `numerator` to the first child *div* element 
+and `denominator to second one.
+
+Markup:
+<div style="text-align:center">
+    <div class="fraction">
+        <div class="whole">2</div>      // optional
+        <div class="fraction-unit">
+            <div class="numerator">13</div>
+            <div class="denominator">132</div>
+        </div>
+    </div>
+</div>
+
+Styleguide Fraction
+
+*/
+
+.fraction {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    & > .whole {
+        display: flex;
+        align-items: center;
+        font-size: 1.2em;
+        height: 100%;
+
+        &:not(:only-of-type) {
+            margin-right: 0.1em;
+        }
+        & > input[type=number] {
+            width: 1.3em;
+            padding: 0.4rem 0;
+            @media (min-width: $screen-breakpoint-1) {
+                padding: 0.2rem 0;
+            }
+        }
+    }
+    & > .fraction-unit {
+        text-align: center;
+        font-size: 1em;
+
+        & input[type=number] {
+            width: 1.6em;
+            padding: 0.3rem 0;
+            @media (min-width: $screen-breakpoint-1) {
+                padding: 0.1rem 0;
+            }
+        }
+        & > .denominator {
+            border-top: 2px solid black;
+        }
+    }
+}
+
+/* end of fraction module */

@@ -10,14 +10,14 @@ const getAnswerIndex = (length, random) => {
     return length - 1
 }
 
-export const decorateExercise = (exercise, random) => {
+export const decorateExercise = (exercise, random, isFraction) => {
     return {
         id: uuidv4(),
         values: [...exercise],
         answerIndex: getAnswerIndex(exercise.length, random),
-        answerValue: "",
+        answerValue: isFraction ? ["", ""] : "",
         checked: false,
-        result: null
+        result: false
     }
 }
 

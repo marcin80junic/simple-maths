@@ -22,12 +22,13 @@ const Fractions = ({ options }) => {
     }
 
     const getNewExercises = () => {
-        const randomizeAnswers = settings.general.randomizeAnswers
+        const randomizeAnswers = settings.general.randomizeAnswers === 'true'
         const level = constants.level.indexOf(options.level) + 1
         const types = ["addition"]
         const brackets = false
-        const newExercises = generateFractionsExercises(level, options.count, types, brackets)
-        return newExercises.map((exercise) => decorateExercise(exercise, randomizeAnswers))
+        const newExercises = generateFractionsExercises(options.count, level, types, brackets)
+        console.log("fractions exercises:", newExercises[0])
+        return newExercises.map((exercise) => decorateExercise(exercise, randomizeAnswers, true))
     }
 
 

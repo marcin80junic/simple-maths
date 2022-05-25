@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext, useContext } from "react"
-import "../../styles/ExerciseUI.scss"
+import "../../styles/MathContainer.scss"
 import OperationList from "./OperationList"
 import ControlPanel from "./ControlPanel"
 import { playSound } from "../utils/utils"
@@ -27,16 +27,21 @@ const MathContainer = (props) => {
 
     const [exercises, setExercises] = useState(restoreSession())
     const [score, setScore] = useState(restoreScore())
-    
+ 
 
-    const handleAnswerChange = (id, value) => {
+    const handleAnswerChange = (id, value, inputId) => {
         if (value.length > 3) return
+        let temp = value
         setExercises(
             exercises.map(operation => {
                 if (operation.id === id) {
+                    if (inputId || inputId === 0) {  // fraction case
+                        temp = operation.answerValue
+                        temp[inputId] = value
+                    }
                     return {
                         ...operation,
-                        answerValue: value,
+                        answerValue: temp,
                         checked: false,
                     }
                 }
@@ -47,8 +52,14 @@ const MathContainer = (props) => {
 
     const checkExercise = (exercise) => {
         let result = false
-        if (exercise.values[exercise.answerIndex] === parseInt(exercise.answerValue)) {
-            result = true
+        if (Array.isArray(exercise.answerValue)) {
+            const answer = parseInt(exercise.answerValue[0]) / parseInt(exercise.answerValue[1])
+            const correct = exercise.values[exercise.answerIndex][0] / exercise.values[exercise.answerIndex][1]
+            result = (answer === correct)
+        } else {
+            if (exercise.values[exercise.answerIndex] === parseInt(exercise.answerValue)) {
+                result = true
+            }
         }
         return {
             ...exercise,
